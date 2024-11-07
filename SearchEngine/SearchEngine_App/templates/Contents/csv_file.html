@@ -1,0 +1,53 @@
+{% extends 'Framework/navbar.html' %} <!--coppies the base.html format-->
+{% load static %}
+
+
+{% block content %} 
+<div class="Content">
+    <h1>Evaluating Machine Learning models
+    </h1>
+    <!-- <p>You gotta import a file bestie</p>
+    <h2> Import Sheet</h2>
+    <p>Importing a csv from any of this available website: </p>
+    <li>
+        <a href=" https://archive.ics.uci.edu/datasets"> UCI Machine Learning Repository</a>
+    </li>
+    <li>
+        <a href="https://datasetsearch.research.google.com/">Google Dataset</a>
+    </li>
+    <li>
+        <a href="https://www.kaggle.com/">Kaggle</a>
+    </li> -->
+
+    <div class="container">
+        <div class="controls">
+            <p>Import Data: </p>
+            <button>Upload a CSV</button>
+            <p> Insert name of file has been chosen</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="controls">
+            <select name="search_algorithm" id="search_algorithm" class="dropdowns" onchange="toggleDropdown()">
+                <option value="">Choose a Learning Algorithm...</option>
+                <option value="KNN-c*">KNN</option>
+                <option value="KMeans-F">K-Means</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button style="color: var(--success-color)">RUN IT</button>
+    </div>
+
+    
+    <h3>Results</h3>
+    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt tempore pariatur unde. Eum tempore harum quam odit non ut autem adipisci beatae libero ipsum. Voluptate, distinctio exercitationem! Quidem, quaerat autem.Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt tempore pariatur unde. Eum tempore harum quam odit non ut autem adipisci beatae libero ipsum. Voluptate, distinctio exercitationem! Quidem, quaerat autem.Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt tempore pariatur unde. Eum tempore harum quam odit non ut autem adipisci beatae libero ipsum. Voluptate, distinctio exercitationem! Quidem, quaerat autem.Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt tempore pariatur unde. Eum tempore harum quam odit non ut autem adipisci beatae libero ipsum. Voluptate, distinctio exercitationem! Quidem, quaerat autem.Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt tempore pariatur unde. Eum tempore harum quam odit non ut autem adipisci beatae libero ipsum. Voluptate, distinctio exercitationem! Quidem, quaerat autem.Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt tempore pariatur unde. Eum tempore harum quam odit non ut autem adipisci beatae libero ipsum. Voluptate, distinctio exercitationem! Quidem, quaerat autem.Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt tempore pariatur unde. Eum tempore harum quam odit non ut autem adipisci beatae libero ipsum. Voluptate, distinctio exercitationem! Quidem, quaerat autem.</p>
+
+</div>
+{% endblock %}
+
+
+
+

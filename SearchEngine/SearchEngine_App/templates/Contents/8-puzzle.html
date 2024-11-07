@@ -1,0 +1,208 @@
+{% extends 'Framework/navbar.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- 
+Main source: https://www.geeksforgeeks.org/for-loop-django-template-tags/
+For loop main source concept since a lot of the DJANGO template follows the concept of Looping
+
+Making them grouped into three: https://stackoverflow.com/questions/845227/django-templates-group-items-in-threes
+Did some trial and error here and it just works AHAH
+-->
+
+<div class="GamePuzzle">
+    <div class="PuzzleInput">
+    <form method="post" action="{% url 'puzzle' %}">
+        {% csrf_token %}
+        
+        <div class="container">
+            <div>
+                <h2> Goal State</h2>
+                <div class="table" id="table">
+                    <div class="row">
+                        {% for cell in goal.cells %}
+                            {% if forloop.counter0|divisibleby:3 and not forloop.first %}
+                                </div><div class="row">
+                            {% endif %}
+                            <button class="{% if cell.value == 0 %}cell-zero{% else %} cell {{ cell.style }} {% endif %}" data-x="{{ cell.x }}" data-y="{{ cell.y }}" data-value="{{ cell.value }}">
+                                <span>{% if cell.value != 0 %}{{ cell.value }}{% endif %}</span>
+                            </button>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="container">
+                    <div class="controls">
+                        <select name="puzzle_configuration" id="puzzle_configuration" class="dropdowns" onchange="toggleDropdown()">
+                            <option value="#">Choose a List</option>
+                            <option value="4, 1, 2, 0, 5, 3, 6, 7, 8">4, 1, 2, 0, 5, 3, 6, 7, 8 </option>
+                            <option value="5, 1, 3, 0, 4, 2, 6, 7, 8">5, 1, 3, 0, 4, 2, 6, 7, 8</option>
+                            <option value="7, 6, 2, 4, 0, 5, 1, 3, 8">7, 6, 2, 4, 0, 5, 1, 3, 8</option>
+                            <option value="4, 7, 2, 1, 6, 5, 0, 3, 8">4, 7, 2, 1, 6, 5, 0, 3, 8</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="controls">
+                        <select name="search_type" id="search_type" class="dropdowns" onchange="toggleSearchDropdown()">
+                            <option value="#">Choose a Search Tree...</option>
+                            <option value="All_Search">DO both Search, UCS and A*</option>
+                            <option value="Informed">Informed Search</option>
+                            <option value="Uninformed">Uninformed Search</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="controls">
+                        <div class="non-editable" id="algorithm_label">
+                            <p style="text-align: left; margin-left: .75em;">Choose an algorithm...</p>
+                        </div>
+                        
+                        <select name="Informed_search_algorithm" id="Informed" class="dropdowns" style="display: none;">
+                            <option value="#">Choose an algorithm...</option>
+                            <option value="A*">A*</option>
+                        </select>
+                
+                        <select name="Uninformed_search_algorithm" id="UnInformed" class="dropdowns" style="display: none;">
+                            <option value="#">Choose an algorithm...</option>
+                            <option value="UCS">Uniform cost search (UCS)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="container">
+                    <div class="controls">                        
+                        <div class="non-editable" id="Heuristic_label">
+                            <p style="text-align: left; margin-left: .75em;">Choose a Heuristic...</p>
+                        </div>
+
+                        <select name="Heuristic" id="Heuristic" class="dropdowns" onchange="toggleSearchDropdown()">
+                            <option value="#">Choose a Heuristic...</option>
+                            <option value="Manhattan">Manhattan</option>
+                            <option value="Hamming">Hamming</option>
+                        </select>
+                    </div>
+            </div>
+        </div>
+        
+        </div>
+        <div class="container">
+            <div class="controls">
+                <!-- <button onclick="randomizeButton()">Random</button> -->
+                <button type="submit" style="color: var(--success-color)" onclick="showSpinner()">Go for IT</button>
+            </div>
+        </div>
+    </form>
+    </div>
+    {% if puzzle_configuration and search_type or search_algorithm %}
+    <h1 style="color: green;">Scroll Down Pls...</h1>
+    <div class="container">
+        <div>
+           
+            <h2> Chosen State</h2>
+            <div class="table" id="table">
+                <div class="row">
+                    {% for cell in data.cells %}
+                        {% if forloop.counter0|divisibleby:3 and not forloop.first %}
+                            </div><div class="row">
+                        {% endif %}
+                        <button class="{% if cell.value == 0 %}cell-zero{% else %} cell {{ cell.style }} {% endif %}" data-x="{{ cell.x }}" data-y="{{ cell.y }}" data-value="{{ cell.value }}">
+                            <span>{% if cell.value != 0 %}{{ cell.value }}{% endif %}</span>
+                        </button>
+                    {% endfor %}
+                </div>
+            </div>
+            <div>
+                <p><strong>Puzzle Configuration:</strong> {{ puzzle_configuration }}</p>
+                <p><strong>Number of Moves:</strong> {{ num_of_move }}</p>
+                <p><strong>[UCS] f-score:</strong> {{ f_score_UCS }}</p>
+                <p><strong>[A*] Manhattan f-score:</strong> {{ f_score_m }}</p>
+                <p><strong>[A*] Hamming f-score:</strong> {{ f_score_h }}</p>
+            </div>
+            {% for step in final_list %}
+                <div class="table" id="table">
+                    <div class="row">
+                        <!--  Source: https://stackoverflow.com/questions/13097736/loop-values-into-divs-in-django-template
+                        For loop in counter ; understanding how to repeat a div
+                        -->
+                        {% for cell in step %}
+                            {% if forloop.counter0|divisibleby:3 and not forloop.first %}
+                                </div><div class="row">
+                            {% endif %}
+                            <button class="{% if cell == 0 %}cell-zero{% else %}cell{% endif %}" data-value="{{ cell }}">
+                                <span>{% if cell != 0 %}{{ cell }}{% endif %}</span>
+                            </button>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="step-label">
+                    <!-- Source: https://stackoverflow.com/questions/837237/how-do-i-check-for-last-loop-iteration-in-django-template
+                    if the last loop iteration in the Loop is the last one it makes that
+                    -->
+                    
+                    {% if forloop.last %}
+                        <h2>YOU REACH THE GOAL 🥳🎉</h2>
+                    {% else %}
+                        <h2>Step {{ forloop.counter }}</h2>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+        <h1 style="color:red">No results to display.</h1>
+    {% endif %}
+</div>
+
+<!-- Loading spinner -->
+<div id="loading-spinner" style="display: none;">
+    <span class="loader"></span>
+</div>
+
+<script> 
+    /*
+    Source: https://stackoverflow.com/questions/21070101/show-hide-div-using-javascript
+    Hides stuff
+    */
+    document.getElementById("Informed").style.display = "none";
+    document.getElementById("UnInformed").style.display = "none";
+    document.getElementById("Heuristic").style.display = "none";
+
+    /*
+    Creating a function so that it gets called by a calling action from a div
+    */
+    function toggleSearchDropdown() {
+        var searchType = document.getElementById("search_type").value;
+        if (searchType === "Informed") {
+            document.getElementById("Informed").style.display = "block";
+            document.getElementById("Heuristic").style.display = "block";
+            document.getElementById("UnInformed").style.display = "none";
+            
+            document.getElementById("Heuristic_label").style.display = "none";
+            document.querySelector(".non-editable").style.display = "none";
+        } else if (searchType === "Uninformed") {
+            document.getElementById("Informed").style.display = "none";
+            document.getElementById("UnInformed").style.display = "block";
+            
+            
+            document.getElementById("Heuristic_label").style.display = "block";
+            document.getElementById("Heuristic").style.display = "none";
+            document.querySelector(".non-editable").style.display = "none";
+        } else {
+            document.getElementById("Informed").style.display = "none";
+            document.getElementById("UnInformed").style.display = "none";
+            document.getElementById("Heuristic").style.display = "none";
+            
+            document.getElementById("Heuristic_label").style.display = "block";
+            document.querySelector(".non-editable").style.display = "block";
+        }
+    }
+
+    function showSpinner() {
+        document.getElementById("loading-spinner").style.display = "block";
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample</title>
+
+    <!-- This is where all of the editable styles should be placed in -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}"> 
+    <script src="{% static 'script.js' %}"></script>
+ 
+</head>
+<body>
+    <div class="details-head  head-title" style="text-align: center;" > <a class="home-head">INTRO TO AI</a></div>
+    
+    <br>
+    <div class="container">
+        <div>
+            <div class="lol">
+                <h2 class="testt">The 8-puzzle</h2>
+                <p  class="Small-infor"> The 8-puzzle game uses a python notebook, 
+                    and it works. The blank space in this code is represented by 
+                    the number 0. The search problem to this is to find a sequence 
+                    that results in the goal state which is in ascending order 
+                    starting with the number 1.</p>
+            </div>
+            <div class="controls">
+                <a href="{%  url 'puzzle' %}">PLAY</a>
+            </div>
+        </div>
+    </div>
+<!-- 
+    <div class="container">
+        <div>
+            <div class="lol" >
+                <h2 class="testt">Import a CSV</h2>
+                <p class="Small-infor">Lorem ipsum, dolor sit amet consectetur 
+                    adipisicing elit. Corrupti rerum numquam, iste tempore nobis 
+                    eaque eos assumenda quod error praesentium, eligendi facere, 
+                    cum placeat? Officia amet repellat sint sapiente! Ipsa!</p>
+            </div>
+            <div class="controls">
+                <a href="{%  url 'csvFile' %}">PLAY</a>
+            </div>
+        </div>
+      
+    </div> -->
+
+    <footer class="footers" style="margin-top:80px;margin-bottom:40px">
+        <div>&copy; 2024 - Search Engine Algorithm in Django</div>    
+    </footer>
+</body>
+</html>
