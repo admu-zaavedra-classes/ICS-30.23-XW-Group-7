@@ -8,4 +8,4 @@ spec:
   - port: 80
     targetPort: 8080
   selector:
-    app: django-app
+    app: search-engine-app
