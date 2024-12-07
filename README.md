@@ -1,5 +1,6 @@
 
-## Program Features  
+
+# For Program Features  
 1. **Initial State**: The starting arrangement of the puzzle tiles is randomized.  
 2. **Goal State**: Declared at the start; the program will attempt to solve the puzzle to match this state.  
 3. **Visualization**: Shows each move and swapping sequence to transition the puzzle from the initial state to the goal state.  
@@ -24,8 +25,6 @@
 
 ---
 
-# Docker and Kubernetes Deployment  
-
 ### Tech Stack  
 If you'd like to swap out any of these choices, feel free to customize on your own.  
 
@@ -41,8 +40,18 @@ If you'd like to swap out any of these choices, feel free to customize on your o
 
 ---
 
-### Build and Push Commands  
 
-Build the Docker image:  
-```bash
-docker build -t gcr.io/group7-444005/group7-image:1.0.0 .
+
+# For Deploying the Program into Docker and Kubernetes Deployment  
+
+## 1: Create a Dockerfile and Deploy on CloudRun
+Steps Used:
+
+
+## 2: Push IMage to Dockerhub
+Steps Used:
+
+## 3: Deploy Your App on Kubernetes
+Steps Used:
+
+
