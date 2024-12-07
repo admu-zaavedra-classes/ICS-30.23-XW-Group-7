@@ -119,3 +119,23 @@ Step 2 Create a standard Cluster in Kubernetes cluster using gcloud
 ```
 kubectl apply -f kubernetes-manifests/search-service.yaml
 ```
+Step 3 Manifests
+```
+kubectl apply -f search-deployment.yaml
+kubectl apply -f search-service.yaml
+kubectl apply -f search-ingress.yaml
+```
+Step 4 Pod deployment and external IP
+```
+export my_zone=us-west1-b
+export my_cluster=standard-cluster-2
+gcloud container clusters get-credentials $my_cluster --zone $my_zone
+```
+Step 5 Load balancer and ingress
+Step 6 Verify deployment
+```
+kubectl get pods
+kubectl get services
+kubectl get ingress
+kubectl get deployments
+```
