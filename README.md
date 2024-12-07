@@ -41,17 +41,84 @@ If you'd like to swap out any of these choices, feel free to customize on your o
 ---
 
 
-
 # For Deploying the Program into Docker and Kubernetes Deployment  
 
+
+
+
 ## 1: Create a Dockerfile and Deploy on CloudRun
-Steps Used:
+When Creating a Dockerfiles these steps where followed:
+
+Step 0: Creating the needed specifically DockerFile and requirement.txt 
+
+Step 1: Cloning the repositiry in github into Google Cloud, make sure that the DockerFIle and the requirements.txt are in the same diretory as the manage file for fewer headahed when running the file.
+```
+git clone https://github.com/admu-zaavedra-classes/ICS-30.23-XW-Group-7.git
+cd ~/ICS-30.23-XW-Group-7/SearchEngine
+```
+
+Step 2: Creating an Image
+```
+docker build -t app .
+```
+
+Step 3: Docker RUN:
+```
+docker run -p 8080:8080 app
+```
 
 
-## 2: Push IMage to Dockerhub
-Steps Used:
+Step 4: Create an Artifact Registry
+1. In the console, search for Artifact Registry in the search field, then click on Artifact Registry result.
+2. Click Create Repository.
+3. Specify searchengine  as the repository name.
+4. Choose Docker as the format.
+5. Under Location Type, select Region and then choose the location  us-west2.
+6. Click Create.
+```
+gcloud auth configure-docker us-west2-docker.pkg.dev
+```
+
+Deploying the image
+```
+gcloud services enable artifactregistry.googleapis.com\cloudbuild.googleapis.com \run.googleapis.com
+```
+
+```
+gcloud builds submit --tag us-west2-docker.pkg.dev/${GOOGLE_CLOUD_PROJECT}/searchengine/app
+```
+
+Step 4:  Deploy the container to Cloud Run
+```
+gcloud run deploy demo-search-engine --image us-west2-docker.pkg.dev/${GOOGLE_CLOUD_PROJECT}/searchengine/app --region us-west2
+```
+
+
+To check servers running in Gcloud
+```
+gcloud run services list
+```
+
+URL USED: https://demo-search-engine-835355823245.us-west2.run.app/
+
+## 2: Push Image to Dockerhub
+Steps Used
+
+
 
 ## 3: Deploy Your App on Kubernetes
-Steps Used:
+(Insert Something ABout Kubernetes)
+### Tech Stack  
+If you'd like to swap out any of these choices, feel free to customize on your own.  
+
+#### Back-end  
+- PostgreSQL  
+- Redis  
+- Celery  
+
+#### Front-end  
+- esbuild  
+- TailwindCSS  
+- Heroicons  
 
 
