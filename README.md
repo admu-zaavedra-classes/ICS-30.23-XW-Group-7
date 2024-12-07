@@ -26,18 +26,19 @@
 ---
 
 ### Tech Stack  
-If you'd like to swap out any of these choices, feel free to customize on your own.  
+This project utilizes a modern tech stack to ensure scalability and functionality
 
 #### Back-end  
-- PostgreSQL  
-- Redis  
-- Celery  
+* Heapq
+This module creates a Heap Data Structure is used to present a priority queue. 
+
 
 #### Front-end  
-- esbuild  
-- TailwindCSS  
-- Heroicons  
+* CSS
+CSS is a language that is used to deploy HTML elements to be displayed to users. This composes of styling elements that will be presented to the user
 
+* Bootstrap
+Bootstrap is a web-development framework that is designed for the web-development process. It is also used as a style to support CSS 
 ---
 
 
