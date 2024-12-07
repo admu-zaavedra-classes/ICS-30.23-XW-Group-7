@@ -109,16 +109,13 @@ Steps Used
 ## 3: Deploy Your App on Kubernetes
 (Insert Something ABout Kubernetes)
 ### Tech Stack  
-If you'd like to swap out any of these choices, feel free to customize on your own.  
+- No dependencies since there is no dependicenies is everything obased on what is availables as coding language in django
 
-#### Back-end  
-- PostgreSQL  
-- Redis  
-- Celery  
-
-#### Front-end  
-- esbuild  
-- TailwindCSS  
-- Heroicons  
-
-
+Step 1 Pulling the Docker Image
+```
+docker pull nathanbenedicto/image-search-engine:latest
+```
+Step 2 Create a standard Cluster in Kubernetes cluster using gcloud
+```
+kubectl apply -f kubernetes-manifests/search-service.yaml
+```
