@@ -2,7 +2,7 @@ FROM python:3.11-slim
 ENV PYTHONUNBUFFERED 1
 ENV HOST 0.0.0.0
 
-WORKDIR /app
+WORKDIR SearchEngine/
 COPY requirements.txt ./
 
 # Copy the current directory contents into the container at /app
@@ -11,7 +11,6 @@ COPY . .
 # Install any needed packages specified in requirements.txt
 RUN pip install -r requirements.txt
 
-WORKDIR /app/project
 # Expose port 8000 (Django default port)
 EXPOSE 8000
 # Set the default command to run the Django development server
