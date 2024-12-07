@@ -102,7 +102,45 @@ gcloud run services list
 URL USED: https://demo-search-engine-835355823245.us-west2.run.app/
 
 ## 2: Push Image to Dockerhub
-Steps Used
+# Step-by-Step Guide to Set Up Docker and Push an Image to DockerHub
+
+## Prerequisites
+- **Docker**: Ensure Docker is installed on your laptop.
+- **WSL 2**: Make sure you have the latest version of WSL 2 installed for Linux dependencies.
+
+---
+
+## Steps
+
+### 1. Install Docker and WSL 2
+1. **Download Docker**  
+   - Visit [Docker's official site](https://www.docker.com/) to download and install Docker Desktop.
+   
+2. **Install or Update WSL 2**
+   - If you don't have WSL 2 installed:  
+     ```bash
+     wsl --install
+     ```
+   - If you already have WSL 2 installed:  
+     ```bash
+     wsl --update
+     ```
+
+---
+
+### 2. Install the Docker Extension in VS Code
+- Open **Visual Studio Code**.
+- Go to the Extensions view (`Ctrl+Shift+X`).
+- Search for and install the **Docker** extension.
+
+---
+
+### 3. Log In to DockerHub
+1. Open a terminal.
+2. Log in to DockerHub using the following command:
+   ```bash
+   docker login -u <username>
+
 
 
 
