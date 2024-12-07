@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: search-deployment
+spec:
+  replicas: 3 # Pods
+  selector:
+    matchLabels:
+      app: search-deployment
+  template:
+    metadata:
+      labels:
+        app: search-deployment
+    spec:
+      containers:
+      - name: search-app
+        image: gcr.io/cr-modified-alveroamadorfausto/cr-django:latest ## CHANGE THIS
+        ports:
+        - containerPort: 8080
