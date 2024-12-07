@@ -11,3 +11,11 @@ Front-end
 esbuild
 TailwindCSS
 Heroicons
+
+
+
+
+docker build -t gcr.io/group7-444005/group7-image:1.0.0 .
+
+docker push gcr.io/group7-444005/group7-image:1.0.0
+
